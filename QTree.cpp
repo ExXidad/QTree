@@ -72,27 +72,40 @@ void QTree::addPoints(std::vector<Point> newPoints) {
     }
 }
 
-std::vector<Point> QTree::getPointsInRectangle(Rectangle rectangle) {
+std::vector<Point> QTree::findOverlappedPoints(Rectangle rectangle) {
     std::vector<Point> overlappedPoints;
-    std::vector<Rectangle> overlappedRectangles;
+    std::vector<QTree> overlappedTrees = findOverlappedTrees(rectangle);
+    for (auto &overlappedTree : overlappedTrees)
+        for (auto &point : overlappedTree.points)
+            if (rectangle.contains(point)) overlappedPoints.emplace_back(point);
 
-
+    return overlappedPoints;
 }
 
-std::vector<QTree> QTree::findOverlappedTrees(Rectangle Rectangle) {
+std::vector<QTree> QTree::findOverlappedTrees(Rectangle rectangle) {
     std::vector<QTree> result;
     std::queue<QTree> subTreesQueue;
     subTreesQueue.emplace(*this);
 
     while (!subTreesQueue.empty())
-        if (subTreesQueue.front().subTrees.empty())
-            result.emplace_back(subTreesQueue.front().subTrees.empty());
-        else {
-            subTreesQueue.emplace(subTreesQueue.front().subTrees);
+        if (Rectangle::rectRectIntersects(subTreesQueue.front().boundary, rectangle))
+            if (subTreesQueue.front().subTrees.empty()) {
+                result.emplace_back(subTreesQueue.front());
+                subTreesQueue.pop();
+            } else {
+                emplaceFrontSubtreesToQueue(subTreesQueue);
+                subTreesQueue.pop();
+            }
+        else
             subTreesQueue.pop();
-        }
 
     return result;
+}
+
+void QTree::emplaceFrontSubtreesToQueue(std::queue<QTree> &queue) {
+    for (auto &subTree : queue.front().subTrees) {
+        queue.emplace(subTree);
+    }
 }
 
 

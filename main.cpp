@@ -26,9 +26,7 @@ int main() {
     Graphics graphics(window);
 
     MyRandom myRandom;
-    std::vector<Point> randPoints = myRandom.getUniformRandPointVector(1000, 0, windowWidth, 0, windowHeight);
-//    std::vector<Point> randPoints{Point(700, 700), Point(750, 750), Point(725, 725), Point(775, 775), Point(675, 675),
-//                                  Point(625, 625)};
+    std::vector<Point> randPoints = myRandom.getUniformRandPointVector(10000, 0, windowWidth, 0, windowHeight);
     graphics.drawPoints(randPoints, sf::Color::Red, true);
 
     QTree testTree(Rectangle(Point(windowWidth / 2, windowHeight / 2), windowWidth / 2, windowHeight / 2),3);
@@ -40,7 +38,12 @@ int main() {
     graphics.drawRectangle(testRectangle, sf::Color::Green, false);
 
     std::vector<QTree> ovelappedTrees = testTree.findOverlappedTrees(testRectangle);
+    for (auto &ovelappedTree : ovelappedTrees) {
+        graphics.drawQTree(ovelappedTree, sf::Color::Red);
+    }
 
+    std::vector<Point> overlappedPoints = testTree.findOverlappedPoints(testRectangle);
+    graphics.drawPoints(overlappedPoints, sf::Color::Green);
 
     graphics.display();
     graphics.keepWindowOpened();

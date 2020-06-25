@@ -19,19 +19,12 @@ private:
     std::vector<QTree> subTrees;
     bool divided = false;
 
-public:
-    const std::vector<QTree> &getSubTrees() const;
-
-    const Rectangle &getBoundary() const;
-
-    std::vector<QTree> findOverlappedTrees(Rectangle Rectangle);
-
 private:
     void divide();
 
     void addPointToDivision(Point point);
 
-
+    void emplaceFrontSubtreesToQueue(std::queue<QTree> &queue);
 
 public:
     QTree();
@@ -44,7 +37,13 @@ public:
 
     void addPoints(std::vector<Point> points);
 
-    std::vector<Point> getPointsInRectangle(Rectangle rectangle);
+    std::vector<Point> findOverlappedPoints(Rectangle rectangle);
+
+    const std::vector<QTree> &getSubTrees() const;
+
+    const Rectangle &getBoundary() const;
+
+    std::vector<QTree> findOverlappedTrees(Rectangle Rectangle);
 };
 
 
