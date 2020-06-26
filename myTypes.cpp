@@ -127,6 +127,7 @@ std::ostream &operator<< (std::ostream &stream, vectorDouble & vect){
         std::cout << item << " ";
     }
     std::cout << std::endl;
+    return stream;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -257,6 +258,7 @@ std::ostream &operator<< (std::ostream &stream, vectorInt & vect){
         std::cout << item << " ";
     }
     std::cout << std::endl;
+    return stream;
 };
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -414,4 +416,5 @@ std::ostream &operator<< (std::ostream &stream,const mapDouble &map) {
         std::cout << "|";
         std::cout << std::endl;
     }
+    return stream;
 }
