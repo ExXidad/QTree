@@ -26,7 +26,7 @@ int main() {
     Graphics graphics(window);
 
     MyRandom myRandom;
-    std::vector<Point> randPoints = myRandom.getUniformRandPointVector(300, 0, windowWidth, 0, windowHeight);
+    std::vector<Point> randPoints = myRandom.getUniformRandPointVector(500, 0, windowWidth, 0, windowHeight);
     graphics.drawPoints(randPoints, sf::Color::Red, true);
 
     QTree testTree(Rectangle(Point(windowWidth / 2, windowHeight / 2), windowWidth / 2, windowHeight / 2),10);
